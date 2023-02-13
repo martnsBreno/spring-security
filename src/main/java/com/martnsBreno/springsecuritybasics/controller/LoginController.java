@@ -1,5 +1,7 @@
 package com.martnsBreno.springsecuritybasics.controller;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,7 @@ public class LoginController {
         try {
             String encodedPassword = passwordEncoder.encode(customer.getPwd());
             customer.setPwd(encodedPassword);
+            customer.setCreate_date(LocalDate.now());
             savedCustomer = customerRepository.save(customer);
             if (savedCustomer.getId() > 0) {
                 response = ResponseEntity.status(HttpStatus.CREATED).body("Cadastrado com sucesso");
