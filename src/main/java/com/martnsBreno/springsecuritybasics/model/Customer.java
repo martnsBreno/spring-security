@@ -1,15 +1,19 @@
 package com.martnsBreno.springsecuritybasics.model;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Customer {
@@ -37,6 +41,10 @@ public class Customer {
 
     @Column(name = "create_dt")
     private LocalDate create_date;
+
+    @JsonIgnore
+    @OneToMany(mappedBy="customer", fetch=FetchType.EAGER)
+    private Set<Authority> authorities;
 
     public int getId() {
         return id;
@@ -92,6 +100,14 @@ public class Customer {
 
     public void setCreate_date(LocalDate create_date) {
         this.create_date = create_date;
+    }
+
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
     }
     
     
