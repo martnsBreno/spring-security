@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ public class LoginController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/cadastro")
+    @PreFilter("filterObject.contactName !='Test'")
     public ResponseEntity<Object> registerUser(@RequestBody Customer customer) {
 
         Customer savedCustomer = null;
@@ -44,3 +46,4 @@ public class LoginController {
         return response;
     }
 }
+

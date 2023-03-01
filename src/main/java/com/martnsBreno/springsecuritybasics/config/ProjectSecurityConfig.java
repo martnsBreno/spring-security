@@ -17,7 +17,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 public class ProjectSecurityConfig {
-    
+
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
@@ -34,6 +34,7 @@ public class ProjectSecurityConfig {
              
         }).and().csrf().ignoringAntMatchers("/noticias", "/cadastro").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
         .and().authorizeRequests()
+        .antMatchers("/emprestimos").hasAuthority("VIEWACCOUNT")
         .antMatchers("/minhaConta").hasAuthority("VIEWACCOUNT")
         .antMatchers("/meuSaldo").hasAnyAuthority("VIEWACCOUNT", "VIEWBALANCE")
         .antMatchers("/minhaConta", "/meuSaldo").authenticated()
